@@ -1,9 +1,9 @@
-def mergeSort (strings):
+def sort (strings):
   if len(strings) <= 1:
     return strings
 
-  left = mergeSort(strings[:len(strings)/2])
-  right = mergeSort(strings[len(strings)/2:])
+  left = sort(strings[:len(strings)/2])
+  right = sort(strings[len(strings)/2:])
   
   return merge (left, right)	
 
