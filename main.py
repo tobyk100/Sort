@@ -7,7 +7,7 @@ output: a list of sorted strings
 """
 
 import sys, random
-import quicksort, bubblesort, mergesort
+import quicksort, bubblesort, mergesort, radixsort
 
 def do_radixsort(strings):
   return strings
