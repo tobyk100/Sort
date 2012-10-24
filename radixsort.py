@@ -4,23 +4,24 @@ def sort(strings):
   """
   create list of 256 empty lists
   get number of passes by iterating through input list and taking max
-  for i = 0 to i < pass
+  for i = maxlength - 1 to 0
     for each url
-      if url.length - i < 0 
+      if i >= len(url) 
         put into 0th bucket
       else
-        hash each url into bucket based on length - ith char
+        hash each url into bucket based on ith char
       collect buckets into new list
   return collected buckets
   """
   buckets = list([] for i in range(0, NUM_BUCKETS));
   maxlength = max(map(len, strings))
-  for i in range(1, maxlength):
+  # count backwards from maxlength - 1 to 0
+  for i in range(maxlength - 1, -1, -1):
     for url in strings:
-      if (len(url) - i) < 0:
+      if (i >= len(url)):
         buckets[0].append(url)
       else:
-        char = ord(url[len(url) - i])
+        char = ord(url[i])
         buckets[char].append(url)
     strings = []
     for bucket in buckets:

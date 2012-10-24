@@ -10,7 +10,7 @@ import sys, random
 import quicksort, bubblesort, mergesort, radixsort
 
 def do_radixsort(strings):
-  return strings
+  return radixsort.sort(strings) 
 
 def do_mergesort(strings):
   return mergesort.sort(strings)
