@@ -1,25 +1,13 @@
 """
 
-Assume all characters are in ASCII.
-input: a file containing a list of URLs. Each URL starts in a new line.
-output: a list of sorted strings
+  The main function. Assume all characters are in ASCII.
 
 """
 
 import sys, random
 import quicksort, bubblesort, mergesort, radixsort
 
-def do_radixsort(strings):
-  return radixsort.sort(strings) 
-
-def do_mergesort(strings):
-  return mergesort.sort(strings)
-
-def do_quicksort(strings):
-  return quicksort.sort(strings)
-
-def do_bubblesort(strings):
-  return bubblesort.sort(strings)
+from full_house import algorithms
 
 def get_strings(f):
   strings = []
@@ -32,38 +20,54 @@ def get_strings(f):
   return strings
 
 if __name__ == "__main__":
+
   filename = None
   if len(sys.argv) < 3:
-    print 'Usage: python main.py input-file output-file'
+    print 'Usage: python main.py input-file output-file [--fullhouse]'
   else:
     inputfile = open(sys.argv[1])
     strings = get_strings(inputfile)
 
-    # sorting
+    use_module_sort_function = (len(sys.argv) == 4 and sys.argv[3] == '--fullhouse')
+    sort_fns = {
+      'bubblesort': bubblesort, 
+      'mergesort': mergesort, 
+      'quicksort': quicksort, 
+      'radixsort': radixsort
+    }
+    if use_module_sort_function:
+      sort_fns = algorithms.sort_fns
+    sort_fns_keys = list(sort_fns.keys())
+
+    # output format:
+    # 1) sort_function1  2) sort_function2  3) sort_function3  4) sort_function4
     print 'Which sorting algorithm would you like?'
-    print '1) O(n^2)  2) O(nlogn)  3) O(1)'
-    sorting_method = raw_input('Enter: ')
-    option = -1
-    try:
-      option = int(sorting_method[:1])
-    except ValueError:
-      sys.exit(1)
+    s = ''
+    for i in range(1, 5):
+      s += '%d) %s  ' % (i, sort_fns_keys[i - 1])
+    print s
+
+    option = None
+    while option is None or (option > 4 or option < 1):
+      sorting_method = raw_input('Enter an option number: ')
+      try:
+        option = int(sorting_method[:1])
+        if option <= 0 or option > 4: raise ValueError('Option out of range')
+      except ValueError:
+        print 'Invalid input %d. Please enter the integer before each option.' % option
  
-    results = strings
-    if option == 1:
-      results = do_bubblesort(strings)
-    elif option == 3:
-      results = do_radixsort(strings)
-    elif option == 2:
-      num = random.randint(0, 9)
-      if num % 2 == 0: 
-        results = do_mergesort(strings)
-      else: 
-        results = do_quicksort(strings)
+    key = sort_fns_keys[option - 1]
+    module = sort_fns[key]
+    if use_module_sort_function:
+      results = strings
+      module(results)
+    else:
+      results = module.sort(strings)
 
     outputfile = open(sys.argv[2], 'w+')
     for item in results:
       outputfile.write('%s\n' % item)
 
+    print 'Sorting with \'%s\' successfully.' % key
     inputfile.close()
     outputfile.close()
