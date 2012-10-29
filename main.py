@@ -23,42 +23,51 @@ if __name__ == "__main__":
 
   filename = None
   if len(sys.argv) < 3:
-    print 'Usage: python main.py input-file output-file [--fullhouse]'
+    print 'Usage: python main.py input-file output-file'
   else:
     inputfile = open(sys.argv[1])
     strings = get_strings(inputfile)
 
-    use_module_sort_function = (len(sys.argv) == 4 and sys.argv[3] == '--fullhouse')
+    # set up sort function names and functions
+    sort_fns_keys = ['bubblesort', 'mergesort', 'quicksort', 'radixsort']
+    
     sort_fns = {
       'bubblesort': bubblesort, 
       'mergesort': mergesort, 
       'quicksort': quicksort, 
       'radixsort': radixsort
     }
-    if use_module_sort_function:
-      sort_fns = algorithms.sort_fns
-    sort_fns_keys = list(sort_fns.keys())
+
+    for n in algorithms.sort_fns.keys():
+      name = n
+      if sort_fns.has_key(n):
+        name = n + '2'
+      sort_fns[name] = algorithms.sort_fns[n]
+      sort_fns_keys.append(name)
 
     # output format:
     # 1) sort_function1  2) sort_function2  3) sort_function3  4) sort_function4
     print 'Which sorting algorithm would you like?'
     s = ''
-    for i in range(1, 5):
-      s += '%d) %s  ' % (i, sort_fns_keys[i - 1])
+    for i in range(0, len(sort_fns_keys)):
+      s += '%d) %s\n' % (i + 1, sort_fns_keys[i])
     print s
 
     option = None
-    while option is None or (option > 4 or option < 1):
+    while option is None or (option > len(sort_fns_keys) or option < 1):
       sorting_method = raw_input('Enter an option number: ')
       try:
-        option = int(sorting_method[:1])
-        if option <= 0 or option > 4: raise ValueError('Option out of range')
+        option = int(sorting_method)
+        if option < 1 or option > len(sort_fns_keys):
+          raise ValueError('Option out of range')
       except ValueError:
-        print 'Invalid input %d. Please enter the integer before each option.' % option
+        print 'Invalid input %s. Please enter the integer before each option.' % sorting_method
  
     key = sort_fns_keys[option - 1]
     module = sort_fns[key]
-    if use_module_sort_function:
+
+    # Fullhouse's sort functions do not return sorted result, instead they manipulate the input list
+    if option > 4:
       results = strings
       module(results)
     else:
@@ -68,6 +77,6 @@ if __name__ == "__main__":
     for item in results:
       outputfile.write('%s\n' % item)
 
-    print 'Sorting with \'%s\' successfully.' % key
+    print 'Sorting with \'%s\' successfully.\n' % key
     inputfile.close()
     outputfile.close()

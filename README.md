@@ -7,17 +7,17 @@ For this exercise we decided to split the work amongst ourselves by having one p
 
 Our usage instructions are relatively simple. The user simply needs to have an input file with the URLs that they wish to sort in the same directory as main.py. All other .py files that are in the repo should also be in this same directory. The user can then run the program from the command line by entering into the directory where main .py is located:
 
-$cd location/where/main.py
+	$cd location/where/main.py
 
 Once the user the is in this directory they simply need to run main with the command:
 
-$python main.py <input file> <output file>
+	$python main.py <input file> <output file>
 
 The program will ask which sorting algorithm that the user would like to use and upon user input will execute on the given input file. This will produce an output file (specified by the user) with all of the URLs in sorted order. 
 
 We tried to make the user experience as easy as possible by letting the user know if they entered in the start command incorrectly and throwing exceptions if they gave bad input at any point. The following is printed if the user invokes the program incorrectly:
 
-$Usage: python main.py input-file output-file
+	$Usage: python main.py input-file output-file
 
 We also included a test file called sorttest.py, it can be run with “python sorttest.py”.
 
