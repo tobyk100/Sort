@@ -21,7 +21,16 @@ We tried to make the user experience as easy as possible by letting the user kno
 
 We also included a test file called sorttest.py, it can be run with “python sorttest.py”.
 
+<strong>Algorithms</strong>
 
+<ul>
+<li>Quicksort - Average O(nlogn). Worst case is O(n^2) however quicksort is in place, 
+which saves memory and thus we feel it is of value to the customer</li>
+<li>Mergersort - Worst case O(nlogn)</li>
+<li>Bubblesort - Worst case O(n^2)</li>
+<li>Radixsort - Worst case O(k*n), where k is the length of the longest string. If all strings are unique
+then k is O(logn) and Radix sort becomes O(nlogn)</li>
+</ul>
 
 
 
