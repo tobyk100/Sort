@@ -8,4 +8,4 @@ def sort(urls):
         heappush(heap, urls.pop(0))
     for i in range(size):
         urls.append(heappop(heap))
-    return
+    return urls

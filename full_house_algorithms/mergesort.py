@@ -36,4 +36,4 @@ def merge(array,s1,e1,s2,e2):
 
 	result += array[s1:e1] + array[s2:e2]            
 	array[start:e2]=result
-	return
+	return array
