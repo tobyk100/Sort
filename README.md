@@ -24,6 +24,8 @@ abstracted the algorithm information to algorithms.py. This module creates a sin
 teams sets. Since the algorithms are in a list we can index them simply, main knows that it recieves the list in sorted
 order and can send back an index specifying what algorithm to run.
 
+When we need to add new algorithms we can modify algorithms.py and leave main completely unchanged.
+
 
 <strong>November 1st Release</strong>
 
