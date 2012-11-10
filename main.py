@@ -7,6 +7,8 @@
 import sys, random
 import algorithms
 
+from url import URL
+
 def get_strings(f):
   strings = []
   line = f.readline()
@@ -20,12 +22,25 @@ def get_strings(f):
 if __name__ == "__main__":
 
   filename = None
-  if len(sys.argv) < 3:
-    print 'Usage: python main.py input-file output-file'
+  if len(sys.argv) not in (3,4):
+    print 'Usage: python main.py [--valid|--invalid] input-file output-file'
     exit(1)
 
-  inputfile = open(sys.argv[1])
+  inputfile = None
+  if len(sys.argv) == 3:
+    inputfile = open(sys.argv[1])
+  else:
+    # If optional flag is set
+    inputfile = open(sys.argv[2])
+
   strings = get_strings(inputfile)
+  urls = [URL(x) for x in strings]
+  if len(sys.argv) == 4:
+    if sys.argv[1] == '--valid':
+      urls = [x for x in urls if x.isValid()]
+    else:
+      urls = [x for x in urls if not x.isValid()]
+
   algorithm_tuples = algorithms.GetAlgorithms()
   print 'Which sorting algorithm would you like?'
   for (i, tup) in enumerate(algorithm_tuples):
@@ -41,11 +56,15 @@ if __name__ == "__main__":
         raise ValueError('Option out of range')
     except ValueError:
       print 'Invalid input %s. Please enter the integer before each option.' % sorting_method
-
-  outputfile = open(sys.argv[2], 'w+')
-  results = algorithms.RunAlgorithm(option, strings)
+  
+  outputfile = None
+  if len(sys.argv) == 3:
+    outputfile = open(sys.argv[2], 'w+')
+  else:
+    outputfile = open(sys.argv[3], 'w+')
+  results = algorithms.RunAlgorithm(option, urls)
   for item in results:
-    outputfile.write('%s\n' % item)
+    outputfile.write('%s\n' % item.url)
 
   print 'Sorting with \'%s\' successfully.\n' %option
   inputfile.close()
