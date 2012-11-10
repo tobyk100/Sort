@@ -20,7 +20,7 @@ def sort(array,s=0,e=-1):
 	  sort(array,s,mid)
 	  sort(array,mid,e)
 	  merge(array,s,mid,mid,e)
-	return
+	return array
 
 def merge(array,s1,e1,s2,e2):
 	''' Minimizes copies.  Not truly inplace '''

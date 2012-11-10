@@ -21,8 +21,14 @@ class URL:
   def __lt__(self, other):
     return self.normalized < other.normalized
 
+  def __le__(self, other):
+    return self.normalized <= other.normalized
+
   def __gt__(self, other):
     return self.normalized > other.normalized
+
+  def __ge__(self, other):
+    return self.normalized >= other.normalized
 
   def __eq__(self, other):
     return self.normalized == other.normalized
