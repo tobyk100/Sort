@@ -12,10 +12,10 @@ class URL:
     return self.normalized
 
   def __len__(self):
-    return len(self.url)
+    return len(self.normalized)
 
   def __getitem__(self, index):
-    return self.url[index]
+    return self.normalized[index]
 
   # Comparison using normalized url
   def __lt__(self, other):
