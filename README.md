@@ -1,5 +1,35 @@
 Sort
 ====
+<strong>November 21st Release</strong>
+Users can now set an optional flag to specify a sort of valid URLs, invalid URLs, or all URLs from the input file.
+The command for running main.py with this new feature is shown below:
+
+    $python main.py [--valid|--invalid] input-file output-file
+
+When "--valid" flag is set, the program will sort only valid URLs in user's input-file. When "--invalid" flag is set, the
+program will sort only invalid URLs in user's input-file. When neither of these flags are set, the program sort all URLs
+in user's input-file by default.
+
+An URL is considered valid if the original URL matches the normalized URL. This program normalizes URLs using
+url_normalized.py module implemented by Nikolai Panov. It normalizes URLs using the following rules:
+
+<ul>
+  <li>Take care of IDN domains.
+  <li>Convert the scheme and host to lower case.</li>
+  <li>Capitalize letters in escape sequences.</li>
+  <li>Decode percent-encoded octets of unreserved characters.</li>
+  <li>Remove the default port.</li>
+  <li>Remove dot-segments.</li>
+  <li>Remove duplicate slashes.</li>
+  <li>Remove the "?" when the query is empty.</li>
+  <li>Use 'http' schema by default when appropriate.</li>
+  <li>For schemes that define a default authority, use an empty authority if the default is desired.</li>
+  <li>For schemes that define an empty path to be equivalent to a path of "/", use "/".</li>
+  <li>All portions of the URI must be utf-8 encoded NFC from Unicode strings.</li>
+</ul>
+
+The provided sorting algorithms sort URLs first by their validity, where valid URLs come before
+invalid ones. Next, the algorithm sorts by strings of the normalized URLs.
 
 <strong>November 8th Release</strong>
 For this release we integrated TA feedback and added the sorting algorithms from team Full House. 
