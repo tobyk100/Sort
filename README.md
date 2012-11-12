@@ -6,8 +6,8 @@ The command for running main.py with this new feature is shown below:
 
     $python main.py [--valid|--invalid] input-file output-file
 
-When "--valid" flag is set, the program will sort only valid URLs in user's input-file. When "--invalid" flag is set, the
-program will sort only invalid URLs in user's input-file. When neither of these flags are set, the program sort all URLs
+When "--valid" flag is set, the program sorts only valid URLs in user's input-file. When "--invalid" flag is set, the
+program sorts only invalid URLs in user's input-file. When neither of these flags are set, the program sorts all URLs
 in user's input-file by default.
 
 An URL is considered valid if the original URL matches the normalized URL. This program normalizes URLs using
@@ -29,7 +29,8 @@ url_normalized.py module implemented by Nikolai Panov. It normalizes URLs using 
 </ul>
 
 The provided sorting algorithms sort URLs first by their validity, where valid URLs come before
-invalid ones. Next, the algorithm sorts by strings of the normalized URLs.
+invalid ones. Next, the algorithm sorts by strings of the normalized URLs. The output file will contain the original URL
+from input file sorted by these two criteria.
 
 <strong>November 8th Release</strong>
 For this release we integrated TA feedback and added the sorting algorithms from team Full House. 
