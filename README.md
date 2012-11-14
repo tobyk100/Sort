@@ -8,10 +8,16 @@ The command for running main.py with this new feature is shown below:
 
 When "--valid" flag is set, the program sorts only valid URLs in user's input-file. When "--invalid" flag is set, the
 program sorts only invalid URLs in user's input-file. When neither of these flags are set, the program sorts all URLs
-in user's input-file by default.
+in user's input-file by the comparison described below.
 
-An URL is considered valid if the original URL matches the normalized URL. This program normalizes URLs using
-url_normalized.py module implemented by Nikolai Panov. It normalizes URLs using the following rules:
+An URL is considered valid if the original URL matches the normalized URL. We made this assumption to simplify what is
+considered valid since the things needed to be considered in normailzed form are fairly standard.The same cases we are addressing
+considering whether a url is normalized are therefore the same things we address in its validity. We didnt want to address
+very small issues that may be contained in a non normalized URL, which some people still accept as valid. We felt the issues
+addressed in making sure a url is normal eliminates most of the odd things in a url that would make it invalid. 
+
+This program normalizes URLs using url_normalized.py module implemented by Nikolai Panov. This is a fairly standard
+normalized form that covers the cases we were most concerned with. It normalizes URLs using the following rules:
 
 <ul>
   <li>Take care of IDN domains.
@@ -28,9 +34,17 @@ url_normalized.py module implemented by Nikolai Panov. It normalizes URLs using 
   <li>All portions of the URI must be utf-8 encoded NFC from Unicode strings.</li>
 </ul>
 
-The provided sorting algorithms sort URLs first by their validity, where valid URLs come before
-invalid ones. Next, the algorithm sorts by strings of the normalized URLs. The output file will contain the original URL
-from input file sorted by these two criteria.
+Therefore our defintion of when a URL is in  normalized form, is a URL that abides by the above rules. 
+Our definition of a valid URL is one that abides by these rules as well.
+
+When the users asks for all URLs, the provided sorting algorithms sort URLs first by their validity, 
+where valid URLs come before invalid ones. Next, the algorithm sorts by strings of the normalized URLs. 
+The <, >, and == will all be the default string operators since we are treating the URLs as strings. 
+The output file will contain the original URL from input file sorted by these two criteria.
+
+If the user asks for only valid or invalid URLs, the set of URLs will be filtered appropriately.
+We will then sort on the normalized version of the URLs, just like above. These will use the standard
+string operators for the string of the normalized URL.
 
 <strong>November 8th Release</strong>
 For this release we integrated TA feedback and added the sorting algorithms from team Full House. 
