@@ -11,7 +11,7 @@ program sorts only invalid URLs in user's input-file. When neither of these flag
 in user's input-file by the comparison described below.
 
 An URL is considered valid if the original URL matches the normalized URL. We made this assumption to simplify what is
-considered valid since the things needed to be considered in normailzed form are fairly standard.The same cases we are addressing
+considered valid since the things needed to be considered in normalized form are fairly standard.The same cases we are addressing
 considering whether a url is normalized are therefore the same things we address in its validity. We didnt want to address
 very small issues that may be contained in a non normalized URL, which some people still accept as valid. We felt the issues
 addressed in making sure a url is normal eliminates most of the odd things in a url that would make it invalid. 
